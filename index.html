@@ -13,11 +13,51 @@
         }
 
         header {
-            background: #007BFF;
+            background: black;
             color: white;
-            padding: 10px 0;
-            text-align: center;
+            padding: 10px;
+            text-align: left;
             border-radius: 5px;
+            border-bottom-right-radius: 0%;
+            border-bottom-left-radius: 0%;
+        }
+
+        header h1 {
+            text-align: left;
+            margin: auto;
+            margin: 10px 15px;
+        }
+
+
+        nav {
+            margin: 5px;
+            text-align: right;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        nav a button {
+            background-color: transparent;
+            border-radius: 5px;
+            color: #f4f4f4;
+            font-size: medium;
+            font-weight: bold;
+            border-color: #f4f4f4;
+            border-width: 1PX;
+        }
+
+        nav a button:hover {
+            background-color: green;
+            text-transform: inherits;
         }
 
         p {
@@ -26,26 +66,47 @@
             color: #333;
         }
 
-        button {
-            background-color: #28a745;
+        .image-container {
+            position: relative;
+            text-align: center;
             color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
         }
 
-        button:hover {
-            background-color: #218838;
+        .image-container img {
+            width: 100%;
+            opacity: 80%;
+            height: 50%;
         }
+
+        .image-container h2 {
+            position:absolute;
+            text-align: left;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            font-size: 70px;
+
+        }
+
     </style>
-</head>
 <body>
     <header>
-        <h1>Welcome to My Web Page</h1>
+        <h1>Fourth Fitness Gym</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Services</a>
+            <a href="#">About</a>
+            <a href="#"><button>Join Now</button></a>
+        </nav>
     </header>
-    <p>This is a simple web page created using HTML and CSS. You can modify this template to suit your needs!</p>
-    <button onclick="alert('Button Clicked!')">Click Me!</button>
-</body>
+   
+    <div class="image-container">
+    <img src="gym.jpg"> <h2>IGNITE YOUR INNER CHAMPION.</h2></img>
+   
+    
+    </div>
+
+</body> 
 </html>
