@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher's Dashboard</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/11.0.2/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/11.0.2/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/11.0.2/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/11.0.2/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/11.0.2/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/11.0.2/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/11.0.2/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/11.0.2/firebase-firestore-compat.js"></script>
+  
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+    <style>
+      * 
+      
+      {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+
+      body {
+          font-family: 'Arial', sans-serif;
+          background-color: #ffffff;
+          color: #000000;
+          line-height: 1.6;
+      }
+
+      /* Header Styling */
+      header {
+          background-color:#ad0116;
+          color: white;
+          padding: 20px 0;
+          position: fixed;
+          width: 100%;
+          top: 0;
+          left: 0;
+          z-index: 1000;
+      }
+
+      header .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height:55px;
+      }
+
+      header .logo {
+          font-size: 22px;
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+      }
+      header .logo img{
+          height: 150px; 
+          width: auto; 
+          display: inline-block;
+      }
+
+      header .container img {
+          height: 16%;
+          width: 16%;
+      }
+
+      header nav ul {
+          list-style: none;
+          display: flex;
+          align-items: center;
+          margin: 0;
+          padding: 0;
+      }
+
+      header nav ul li {
+          margin-left: 20px;
+      }
+
+      header nav ul li a {
+          text-decoration: none;
+          color: white;
+          font-size: 18px;
+      }
+
+      header nav ul li:hover{
+          font-weight: bold;
+      }
+
+          
+    .main-content {
+        padding: 80px 20px 20px;
+        text-align: center;
+        background-image: url("new.png");
+        background-size: contain;
+
+    }
+
+      .main-content h2 {
+          font-size: 32px;
+          color: #ad0116;
+          margin-bottom: 20px;
+         text-shadow: 2px 2px white;
+      }
+
+      .main-content p {
+          font-size: 18px;
+          margin-bottom: 30px;
+          color: #030303;
+         text-shadow:2px 1px white;
+      }
+
+      .logout-btn {
+          padding: 10px 20px;
+          background-color: #A60000;
+          color: white;
+          font-size: 16px;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+      
+      .logout-btn:hover {
+      background-color: #FF4C4C;
+      transform: scale(1.05);
+      }
+
+      header nav ul li button {
+      margin: 0;
+      padding: 10px 20px;
+      font-size: 16px;
+      }
+
+      header nav ul li:last-child {
+      display: flex;
+      align-items: center;
+      } 
+
+      footer {
+        margin-top: auto; 
+    background-color: #A60000;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+      footer p {
+          font-size: 16px;
+      }
+
+      .block {
+      position: absolute;
+      top: 110px; 
+      right: 20px; 
+      width: 250px; 
+      background-color: white; 
+      border: 1px solid #ccc; 
+      border-radius: 8px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 15px; 
+      z-index: 1000;
+      height: 270px;
+     
+      }
+
+
+      .headingLinkWrap {
+          display: flex;
+          align-items: center;
+          justify-content: space-between; 
+          margin-bottom: 10px;
+      }
+      
+
+      .widget-icon {
+          color: #ad0116; 
+          font-size: 20px; 
+          margin-right: 10px;
+      }
+
+      
+      .headingLinkWrap h2 {
+          font-size: 18px;
+          font-weight: bold;
+          margin: 0;
+          color: #333;
+      }
+
+      
+      .headingLinkWrap a {
+          text-decoration: none;
+          color: #ad0116;
+          font-size: 14px;
+          display: flex;
+          align-items: center;
+      }
+
+      .headingLinkWrap a:hover {
+          text-decoration: underline;
+      }
+
+  
+      .user_todo_widget p {
+          font-size: 14px;
+          color: #666;
+          margin: 0;
+          text-align: left;
+      }
+      
+      .todo-entry {
+      display: flex;
+      align-items: center;
+      gap: 10px; 
+      margin-bottom: 10px; 
+      }
+
+      .todo-entry input[type="text"] {
+      flex-grow: 1; 
+      }
+
+      .class-cards {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 20px;
+         
+      }
+
+      .class-card {
+          background-color: #f9f9f9;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          overflow: hidden;
+          display: flex;
+          flex-direction:column;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          height: auto;
+          width: 300px;
+          margin-bottom: 1%;
+          box-shadow: #333;
+          align-items: center;
+      }
+
+      .class-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+      }
+      .class-card img {
+          max-width: 100%;
+          height: auto;
+      }
+
+      .class-details {
+          padding: 15px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          
+      }
+
+      .class-details h3 {
+          font-size: 18px;
+          color: #ad0116;
+          margin-bottom: 10px;
+      }
+
+      .class-details p {
+          font-size: 14px;
+          color: #666;
+          margin-bottom: 10px;
+      }
+
+      .class-cards{
+          background-color: #ecebeb;
+          opacity: 95%;
+          border: 1.5px solid #7c7b7b;
+          border-radius: 8px;
+          display: flex;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          height:fit-content;
+          width:85%;
+      }
+
+      .add-btn {
+          padding: 10px 20px;
+          background-color: #ad0116;
+          color: white;
+          font-size: 16px;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          margin: 20px;
+      }
+      .popup {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+        
+        }
+      .popup p{
+          size: 14px;
+      }
+      .popup button{
+          padding: 10px 20px;
+          background-color: #ad0116;
+          color: white;
+          font-size: 14px;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          margin: 20px;
+      }
+      .popup-content {
+          margin: 10% auto;
+          padding: 20px;
+          width: 300px;
+          background: white;
+          border-radius: 8px;
+          text-align: center;
+      }
+      .popup-content input, .popup-content textarea {
+          width: 90%;
+          padding: 10px;
+          margin: 10px 0;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+      }
+      .close {
+          float: right;
+          font-size: 18px;
+          color: #ad0116;
+          cursor: pointer;
+      }
+      .class-cards {
+          display: flex;
+          flex-wrap: wrap;
+          padding: 20px;
+      }
+      .class-card {
+          background: #f4f4f4;
+          border-radius: 8px;
+          padding: 10px;
+       
+          margin: 5px;
+          width: 250px;
+          text-align: left;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+      .class-card h3 {
+          margin: 0;
+          color: #ad0116;
+      }
+
+      .class-card img{
+        height: 180px ;
+        width: 215px;
+        border-radius: 8px;
+      }
+
+      .deleteButton{
+          font-size: 18px;
+          color: #ad0116;
+          cursor: pointer;
+      }
+
+      a{
+        text-decoration: none;
+      }
+     
+  </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+          <h1 class="logo"><img src="ucp.png">Teacher's Dashboard</h1>
+          <nav>
+              <ul>
+                  <li><a href="https://ucp.edu.ph/index/home">About</a></li>
+                  <li><a href="contact.html">Contact Us</a></li>
+                  <li><button id="logoutButton" class="logout-btn">Log Out</button></li>
+              </ul>
+          </nav>
+      </div>
+  </header>
+
+  <section class="main-content">
+      <div class="container"><br><br>
+          <h2>Welcome, Teacher!</h2>
+          <p>Manage and access lessons easily with our interactive platform.</p>
+          <button class="add-btn" onclick="openPopup()">+ Add Lesson</button>
+          <div class="class-cards" id="class-cards"><br>
+          <div class="class-card">
+            <a href="les1.html">
+                <div class="class-details">  
+                <img src="redrock.jpg" alt="Class Image" class="class-image">
+                 
+                      <h3>Lesson 1: Phonics</h3>
+                      <p>Created at: </p>
+                  </div>
+      </div>
+          </div>
+     </div>
+  </section>
+
+   <!-- Todo -->
+   <div class="block">
+      <div class="headingLinkWrap">
+          <i class="widget-icon fa-check-circle"></i>
+          <h2>To-Do</h2>
+          <a title="Add to-do item" aria-haspopup="true">
+              <i class="add"></i>
+              <button id="add-todo-btn" onclick="addTodoEntry()">+</button>
+          </a>
+      </div>
+
+      <div id="user_todo_widget" class="user_todo_widget">
+
+      </div>
+  </div>
+
+  <!-- Popup -->
+   <div id="popup" class="popup">
+      <div class="popup-content">
+          <p>Add Lesson</p>
+          <span class="close" onclick="closePopup()">&times;</span>
+          <input type="text" id="lesson-title" placeholder="Lesson Title" />
+          <input type="text" id="lesson-description" placeholder="Lesson Description" />
+          <input type="file" id="lesson-image" accept="image/*" />
+          <!-- <input type="file" id="lesson-file" accept="document/*"/> -->
+          <button onclick="addLesson()">Submit</button>
+
+      </div>
+  </div>
+  
+  
+  
+  
+  
+  <footer>
+      <p>&copy; 2024 Universal College of Parañaque</p>
+  </footer>
+  
+  
+  
+  <script>
+    function openPopup() {
+    document.getElementById("popup").style.display = "block";
+}
+
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+
+function del(){
+    document.getElementById("popup-todo").style.display="none";
+
+}
+
+function addLesson() {
+
+    const title = document.getElementById("lesson-title").value.trim();
+    const description = document.getElementById("lesson-description").value.trim();
+    const imageInput = document.getElementById("lesson-image");
+    const imageFile = imageInput.files[0];
+
+    if (title === "" || description === "" || !imageFile) {
+        alert("Please fill in all fields and select an image.");
+        return;
+    }
+
+    const classCards = document.getElementById("class-cards");
+    const newCardButton = document.createElement("button");
+    newCardButton.className = "class-card";
+
+
+    const reader = new FileReader();
+    reader.onload = function (event) {
+        newCardButton.innerHTML = `
+            <img src="${event.target.result}" alt="Lesson Image">
+            <h3>${title}</h3>
+            <p>${description}</p>
+        `;
+        classCards.appendChild(newCardButton);
+
+        newCardButton.onclick = function () {
+            window.location.href = "les1.html";
+        };
+    };
+    reader.readAsDataURL(imageFile);
+
+    document.getElementById("lesson-title").value = "";
+    document.getElementById("lesson-description").value = "";
+    imageInput.value = "";
+    closePopup();
+};
+    const logoutButton = document.getElementById('logoutButton');
+
+    logoutButton.addEventListener('click', function() {
+       
+        const confirmLogout = confirm("Are you sure you want to log out?");
+        if (confirmLogout) {
+                 window.location.href = "login.html"; 
+        } else {
+            console.log("Log out canceled");
+        }
+    });
+
+    const textInput = document.createElement("input");
+            textInput.type = "text";
+            textInput.placeholder = "Task Description";
+
+            
+            const deleteButton = document.createElement("button");
+            deleteButton.innerHTML = "x";
+            deleteButton.onclick = function () {
+                newEntry.remove();
+            };
+
+           
+            newEntry.appendChild(checkbox);
+            newEntry.appendChild(textInput);
+            newEntry.appendChild(deleteButton);
+            todoWidget.appendChild(newEntry);
+      
+</script>
+   
+
+    <!-- <input onchange="updatePost(event)"> -->
+  </body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+        }
+        header{
+            background-color:#ad0116;
+          color: white;
+          padding: 20px 0;
+          position: fixed;
+          width: 100%;
+          top: 0;
+          left: 0;
+          z-index: 1000;
+        }
+
+        header .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height:55px;
+      }
+
+      header .logo {
+          font-size: 22px;
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+      }
+
+      header .logo img{
+          height: 150px; 
+          width: auto; 
+          display: inline-block;
+      }
+
+      header .container img {
+          height: 16%;
+          width: 16%;
+      }
+
+      header nav ul {
+          list-style: none;
+          display: flex;
+          align-items: center;
+          margin: 0;
+          padding: 0;
+      }
+
+      header nav ul li {
+          margin-left: 20px;
+      }
+
+      header nav ul li a {
+          text-decoration: none;
+          color: white;
+          font-size: 18px;
+      }
+
+      header nav ul li:hover{
+          font-weight: bold;
+      }
+
+      .logout-btn {
+          padding: 10px 20px;
+          background-color: #A60000;
+          color: white;
+          font-size: 16px;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+      
+      .logout-btn:hover {
+      background-color: #FF4C4C;
+      transform: scale(1.05);
+      }
+
+      footer {
+          background-color: #A60000;
+          color: white;
+          padding: 20px 0;
+          text-align: center;
+      }
+
+      footer p {
+          font-size: 16px;
+      }
+        .main-content {
+          padding: 80px 20px 20px;
+          text-align: center;
+          background-color: #f7f7f7;
+          background-image: url("new.png");
+          background-repeat:inherit;
+          background-size: auto;
+        }
+
+        .slides {
+            position: relative;
+            width: 80%; 
+            padding-bottom: 36.25%; 
+            
+            display: none;
+            /* padding: 20px; */
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f7f7f7;
+            margin: 20px auto;
+            max-width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .slides.active {
+            display: block;
+        }
+
+        hr {
+        border: none;
+        height: 1px;
+        background-color: #ccc; 
+        margin: 5px 0; 
+         }
+
+        .navigation {
+            margin: 20px;
+           
+        }
+
+        .navigation a {
+            text-decoration: none;
+            background-color: #A60000;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin: 0 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .navigation a:hover {
+            background-color: #cc4343;
+        }
+
+
+        .slides.maximized {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999;
+            margin: 0;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        .maximize-btn {
+            text-decoration: none;
+            background-color: #A60000;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .maximize-btn:hover {
+            background-color: #696a6d;
+            color: black;
+        }
+    </style>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo"><img src="ucp.png">Lesson 1: Phonics</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="https://ucp.edu.ph/index/home">About</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><button id="logoutButton" class="logout-btn">Log Out</button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <br>
+    <section class="main-content">
+        <div class="slides active" id="slide-1">
+            <h2>Welcome to Lesson 1</h2>
+            <p>This is the introduction to phonics. Phonics is the study of sounds in language.</p>
+            <hr>
+        </div>
+        <div class="slides" id="slide-2">
+            <h2>Vowels</h2>
+            <p>Vowels are A, E, I, O, U. They are the building blocks of words.</p>
+        </div>
+        <div class="slides" id="slide-3">
+            <h2>Consonants</h2>
+            <p>Consonants are the letters in the alphabet that are not vowels.</p>
+        </div>
+
+        <div class="navigation">
+            <a href="#" id="prev">Previous</a>
+            <a href="#" id="next">Next</a>
+            <button class="maximize-btn" id="maximizeBtn"> Fullscreen</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Universal College of Parañaque</p>
+    </footer>
+
+    <script>
+        const slides = document.querySelectorAll('.slides');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+        const maximizeButton = document.getElementById('maximizeBtn');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+        }
+
+        prevButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            currentSlide = (currentSlide > 0) ? currentSlide - 1 : slides.length - 1;
+            showSlide(currentSlide);
+        });
+
+        nextButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            currentSlide = (currentSlide < slides.length - 1) ? currentSlide + 1 : 0;
+            showSlide(currentSlide);
+        });
+
+        maximizeButton.addEventListener('click', () => {
+            const currentActiveSlide = slides[currentSlide];
+            currentActiveSlide.classList.toggle('maximized');
+            maximizeButton.innerHTML = '<span class="material-icons">fullscreen</span>';
+        });
+
+        document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+           
+            currentSlide = (currentSlide > 0) ? currentSlide - 1 : slides.length - 1;
+            showSlide(currentSlide);
+        } else if (e.key === 'ArrowRight') {
+            
+            currentSlide = (currentSlide < slides.length - 1) ? currentSlide + 1 : 0;
+            showSlide(currentSlide);
+        }
+
+        document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+        const currentActiveSlide = slides[currentSlide];
+        currentActiveSlide.classList.remove('maximized'); 
+        maximizeButton.innerHTML = '<span class="material-icons">fullscreen</span>';
+        }
+});
+    });
+
+
+
+        const logoutButton = document.getElementById('logoutButton');
+        logoutButton.addEventListener('click', function() {
+   
+        const confirmLogout = confirm("Are you sure you want to log out?");
+        if (confirmLogout) {
+                window.location.href = "login.html"; 
+        } else {
+            console.log("Log out canceled");
+        }
+});
+    </script>
+</body>
+</html>

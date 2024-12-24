@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Login</title>
+
+
+
+    <script defer src="/__/firebase/11.0.2/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/11.0.2/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/11.0.2/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/11.0.2/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/11.0.2/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/11.0.2/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/11.0.2/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/11.0.2/firebase-firestore-compat.js"></script>
+
+    
+
+    <!-- CSS Styling -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f7f7f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .login-container {
+        background-color: white;
+        padding: 40px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+      }
+
+      h2 {
+        color: #ad0116;
+        margin-bottom: 20px;
+      }
+
+      .input-field input {
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+      }
+
+      .login-button {
+        width: 100%;
+        padding: 15px;
+        background-color: #A60000;
+        color: white;
+        font-size: 18px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .login-button:hover {
+        background-color: #8B0000;
+      }
+
+      .footer {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #555;
+      }
+
+      .divider {
+        margin: 20px 0;
+        height: 1px;
+        background-color: #ddd;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="login-container">
+      <h2>Teacher Login</h2>
+      <form id="loginForm">
+        <div class="divider"></div>
+        <div class="input-field">
+          <input placeholder="Enter Email Address" id="email" type="email" class="validate" required />
+        </div>
+        <div class="input-field">
+          <input placeholder="Enter Password" id="password" type="password" class="validate" autocomplete="off" required />
+        </div>
+       
+        
+        <div class="input-field center">
+          <button class="login-button" type="submit" id="btnLogin">Login</button>
+        </div>
+
+        
+
+        <div class="footer">
+          <p>&copy; 2024 Universal College of Parañaque</p>
+        </div>
+      </form>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js"></script> 
+    <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js"></script> 
+    <script defer src="auth.js"></script>
+    <!-- Firebase Configuration -->
+
+
+
+   
+  </body>
+</html>
